@@ -19,3 +19,6 @@ dotnet JinrouClient.Cosole.dll http://localhost:50051
 C#9の機能を使っているので、Visual Studioは最新にしておいて下さい。  
 また、直接NuGetパッケージのダウンローダ場所を参照している箇所があるので、もし参照できない様であれば、適宜変更をお願いします。
 ([ここ](https://github.com/f-miyu/Jinrou/blob/master/client/JinrouClient.Android/JinrouClient.Android.csproj#L123)と[ここ](https://github.com/f-miyu/Jinrou/blob/master/client/JinrouClient.iOS/JinrouClient.iOS.csproj#L229))
+
+# 説明
+[こちら](https://github.com/f-miyu/Jinrou/blob/master/document.md)
