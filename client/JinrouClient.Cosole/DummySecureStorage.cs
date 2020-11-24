@@ -6,9 +6,9 @@ namespace JinrouClient.Cosole
 {
     public class DummySecureStorage : ISecureStorage
     {
-        public Task<string> GetAsync(string key)
+        public Task<string?> GetAsync(string key)
         {
-            return Task.FromResult<string>(null);
+            return Task.FromResult<string?>(null);
         }
 
         public bool Remove(string key)
