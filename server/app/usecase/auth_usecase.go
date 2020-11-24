@@ -8,7 +8,7 @@ import (
 	"github.com/f-miyu/jinrou/server/app/domain/service"
 )
 
-const tokenExpiredDuration = 5000 * time.Second
+const tokenExpiredDuration = time.Hour
 
 type AuthUsecase interface {
 	Register(userName string) (user domain.User, token domain.Token, refreshToken domain.Token, err error)
