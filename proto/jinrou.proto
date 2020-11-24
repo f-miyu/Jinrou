@@ -1,0 +1,165 @@
+syntax = "proto3";
+
+option go_package = ".;pb";
+
+package jinrou;
+
+service Jinrou {
+    rpc Register(RegisterRequest) returns (RegisterResponse);
+    rpc Refresh(RefreshRequest) returns (RefreshResponse);
+    rpc CreateGame(CreateGameRequest) returns (CreateGameResponse);
+    rpc Join(JoinRequest) returns (JoinResponse);
+    rpc Leave(LeaveRequest) returns (LeaveResponse);
+    rpc Vote(VoteRequest) returns (VoteResponse);
+    rpc Kill(KillRequest) returns (KillResponse);
+    rpc Next(NextRequest) returns (NextResponse);
+    rpc GetRoles(GetRolesRequest) returns (GetRolesResponse);
+    rpc ObserveState(ObserveStateRequest) returns (stream ObserveStateResponse);
+    rpc UnobserveState(UnobserveStateRequest) returns (UnobserveStateResponse);
+}
+
+enum Phase {
+    START = 0;
+    NOON = 1;
+    NIGHT = 2;
+    END = 3;
+}
+
+enum Side {
+    NEUTRAL = 0;
+    VILLAGERS = 1;
+    WEREWOLVES = 2;
+}
+
+enum Role {
+    UNKOWN = 0;
+    VILLAGER = 1;
+    WEREWOLF = 2;
+}
+
+enum ChangeType {
+    PLAYER_JOINED = 0;
+    PLAYER_LEFT = 1;
+    PHASE_CHANGED = 2;
+    PHASE_CHANGED_WITHOUT_KILLING = 3;
+    GAME_OVER = 4;
+}
+
+message RegisterRequest {
+    string player_name = 1;
+}
+
+message RegisterResponse {
+    uint64 player_id = 1;
+    string token = 2;
+    string refresh_token = 3;
+}
+
+message RefreshRequest {
+    string refresh_token = 1;
+}
+
+message RefreshResponse {
+    string token = 1;
+    string refresh_token = 2;
+}
+
+message CreateGameRequest {
+    Config config = 1;
+}
+
+message CreateGameResponse {
+    State state = 1;
+}
+
+message JoinRequest {
+    string game_id = 1;
+}
+
+message JoinResponse {
+    State state = 1;
+}
+
+message LeaveRequest {
+    string game_id = 1;
+}
+
+message LeaveResponse {
+    State state = 1;
+}
+
+message VoteRequest {
+    string game_id = 1;
+    uint64 player_id = 2;
+}
+
+message VoteResponse {
+
+}
+
+message KillRequest {
+    string game_id = 1;
+    uint64 player_id = 2;
+}
+
+message KillResponse {
+
+}
+
+message NextRequest {
+    string game_id = 1;
+}
+
+message NextResponse {
+}
+
+message GetRolesRequest {
+    string game_id = 1;
+}
+
+message GetRolesResponse {
+    map<uint64, Role> roles = 1;
+}
+
+message ObserveStateRequest {
+    string game_id = 1;
+}
+
+message ObserveStateResponse {
+    State state = 1;
+    ChangeType change_type = 2;
+    Phase old_phase = 3;
+    oneof parameter {
+        uint64 added_player_id = 4;
+        uint64 left_player_id = 5;
+        uint64 killed_player_id = 6;
+        Side winner = 7;
+    }
+}
+
+message UnobserveStateRequest {
+    string game_id = 1;
+}
+
+message UnobserveStateResponse {
+}
+
+message State {
+    string game_id = 1;
+    Config config = 2;
+    Phase phase = 3;
+    int32 day = 4;
+    map<uint64, Player> players = 5;
+}
+
+message Config {
+    int32 player_num = 1;
+    int32 werewolf_num = 2;
+}
+
+message Player {
+    uint64 player_id = 1;
+    string player_name = 2;
+    bool is_died = 3;
+    int32 index = 4;
+}

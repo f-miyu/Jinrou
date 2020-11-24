@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<popup:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:popup="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             x:Class="JinrouClient.Views.CreatePage">
+    <Frame HorizontalOptions="Center"
+           VerticalOptions="Center"
+           CornerRadius="8"
+           BackgroundColor="White"
+           HasShadow="False"
+           WidthRequest="180">
+        <StackLayout Padding="16" Spacing="12">
+            <Label HorizontalOptions="Center">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="プレイヤー数: " />
+                        <Span Text="{Binding PlayerNum.Value}"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Stepper Minimum="3" Value="{Binding PlayerNum.Value}" HorizontalOptions="Center"/>
+            <Label  HorizontalOptions="Center">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="人狼数: " />
+                        <Span Text="{Binding WerewolfNum.Value}"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Stepper Minimum="1" Value="{Binding WerewolfNum.Value}"  HorizontalOptions="Center" />
+            <Button Text="決定" Command="{Binding EnterCommand}"  HorizontalOptions="Center" />
+        </StackLayout>
+    </Frame>
+</popup:PopupPage>

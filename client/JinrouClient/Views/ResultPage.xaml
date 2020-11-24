@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:converters="clr-namespace:JinrouClient.Converters"
+             xmlns:prism="http://prismlibrary.com"
+             x:Class="JinrouClient.Views.ResultPage"
+             ios:Page.UseSafeArea="True">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:SideStringConverter x:Key="sideStringConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <StackLayout HorizontalOptions="Center"
+                 VerticalOptions="Center">
+        <Label HorizontalOptions="Center">
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="{Binding Side.Value, Converter={StaticResource sideStringConverter}}" />
+                    <Span Text="の" />
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+        <Label FontSize="80" HorizontalOptions="Center" >
+            <Label.Text>
+                <Binding Path="IsWinner.Value">
+                    <Binding.Converter>
+                        <converters:BoolToObjectConverter x:TypeArguments="x:String"
+                                                          TrueObject="勝利"
+                                                          FalseObject="敗北">
+                        </converters:BoolToObjectConverter>
+                    </Binding.Converter>
+                </Binding>
+            </Label.Text>
+        </Label>
+        <Button Text="終了" Command="{prism:NavigateTo '/MainPage'}" />
+    </StackLayout>
+</ContentPage>

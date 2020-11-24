@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<popup:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:popup="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             x:Class="JinrouClient.Views.JoinPage">
+    <Frame HorizontalOptions="Center"
+           VerticalOptions="Center"
+           CornerRadius="8"
+           BackgroundColor="White"
+           HasShadow="False">
+        <StackLayout Padding="16">
+            <Label Text="ゲームIDを入力して下さい" />
+            <Entry Text="{Binding GameId.Value}" Keyboard="Numeric" MaxLength="6" />
+            <Button Text="決定" Command="{Binding EnterCommand}" />
+        </StackLayout>
+    </Frame>
+</popup:PopupPage>

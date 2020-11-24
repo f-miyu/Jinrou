@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:converters="clr-namespace:JinrouClient.Converters"
+             xmlns:vm="clr-namespace:JinrouClient.ViewModels"
+             x:Class="JinrouClient.Views.GamePage"
+             ios:Page.UseSafeArea="True">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:ActionTypeStringConverter x:Key="actionTypeStringConverter" />
+            <converters:RoleStringConverter x:Key="roleStringConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ListView SelectionMode="None" ItemsSource="{Binding Players.Value}" RowHeight="80">
+        <ListView.Header>
+            <StackLayout>
+                <Label Text="{Binding Title.Value}" FontSize="Large" HorizontalOptions="Center" />
+                <Label Text="{Binding Description.Value}" HorizontalOptions="Center" />
+            </StackLayout>
+        </ListView.Header>
+        <ListView.Footer>
+            <StackLayout Padding="16">
+                <Button Text="{Binding ActionName.Value}"
+                        Command="{Binding ActionCommand}"
+                        IsVisible="{Binding IsActionEnabled.Value}"
+                        HorizontalOptions="Center"
+                        Background="red"
+                        TextColor="White"
+                        WidthRequest="100"/>
+            </StackLayout>
+        </ListView.Footer>
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ViewCell>
+                    <Grid Padding="16">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="32" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="100" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0"  Text="{Binding Index}" VerticalOptions="Center" FontSize="Large" />
+                        <StackLayout Grid.Column="1" VerticalOptions="Center" >
+                            <Label Text="{Binding Name}" MaxLines="1" LineBreakMode="TailTruncation" />
+                            <Label  Text="{Binding Status}" />
+                        </StackLayout>
+                        <Button Grid.Column="2" 
+                                Text="{Binding ActionType,
+                                Converter={StaticResource actionTypeStringConverter}}"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:GamePageViewModel}}, Path=SelectCommand}"
+                                CommandParameter="{Binding}"
+                                IsVisible="{Binding CanSelect}"
+                                VerticalOptions="Center"
+                                Background="red"
+                                TextColor="White"/>
+                    </Grid>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+</ContentPage>

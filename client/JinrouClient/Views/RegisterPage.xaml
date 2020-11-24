@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             x:Class="JinrouClient.Views.RegisterPage"
+             ios:Page.UseSafeArea="True">
+    <StackLayout HorizontalOptions="Center"
+                 VerticalOptions="Center">
+        <Label Text="名前を入力して下さい" />
+        <Entry Text="{Binding Name.Value}" />
+        <Button Text="登録" Command="{Binding RegisterCommand}" />
+    </StackLayout>
+</ContentPage>

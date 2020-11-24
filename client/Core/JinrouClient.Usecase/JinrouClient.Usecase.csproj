@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <Optimize>false</Optimize>
+    <WarningLevel>4</WarningLevel>
+    <Optimize></Optimize>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\JinrouClient.Domain\JinrouClient.Domain.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="ReactiveProperty" Version="7.5.1" />
+    <PackageReference Include="System.Reactive" Version="5.0.0" />
+  </ItemGroup>
+</Project>

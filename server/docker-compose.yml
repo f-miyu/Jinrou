@@ -1,0 +1,47 @@
+version: "3"
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: jinrou_mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: jinrou
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      TZ: "Asia/Tokyo"
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./docker/mysql/conf.d:/etc/mysql/conf.d
+  app:
+    container_name: jinrou_app
+    build:
+      context: .
+      dockerfile: ./docker/app/Dockerfile
+    tty: true
+    restart: always
+    ports:
+      - 50051:50051
+    environment:
+      MYSQL_DB_HOST: jinrou_mysql
+      MYSQL_DATABASE: jinrou
+      MYSQL_PORT: 3306
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      GRPC_PORT: 50051
+      SIGNING_KEY: SECRET
+    volumes:
+      - ./app:/go/src/app
+    entrypoint:
+      - dockerize
+      - -wait
+      - tcp://mysql:3306
+    command: ["go", "run", "main.go", "wire_gen.go"]
+    depends_on:
+      - mysql
+volumes:
+  mysql_data:
